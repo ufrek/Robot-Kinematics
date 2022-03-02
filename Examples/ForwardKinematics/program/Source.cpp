@@ -36,10 +36,10 @@ int main()
 	std::ofstream file;
 	file.open("angles.txt");
 
-	//get current time
-	time_t start_time;
 
-	auto startTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+	long long startTime[3];
+	startTime[0] = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+	
 
 	//alter this to slow it down? I think
 	float timeFactor = .00015f;
@@ -55,15 +55,26 @@ int main()
 	int totalRuns = 0;
 	while (1)
 	{
-		auto currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-		double duration = (currentTime - startTime);
+		long long currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+		
+		double duration;
+		
+		//gets duration based on startTimes
+		if(currentAction == 0)
+			 duration = (currentTime - startTime[0]);
+		else if (currentAction == 1)
+			duration = (currentTime - startTime[1]);
+		//else if (currentAction == 2)
+			 //duration = (currentTime - startTime[2]);
+		else
+			 duration = (currentTime - startTime[1]);
+
 		//cout << duration;
 		//CHECK THIS		
 //uncomment later		
-		if (duration * timeFactor  >= 280)
-			break;
-		//duration *= timeFactor;
-		//cout << duration << "\n";
+		//if (duration * timeFactor  >= 280)
+			//break;
+		
 
 		double* d;
 		//d = edxl.getAngleMult(idarr, 6);
@@ -75,17 +86,6 @@ int main()
 		// a / (1.0 + exp(x - d))) + b 
 		//x = time
 
-		
-		
-	
-				
-
-
-		
-
-
-
-	
 
 		if (currentAction == 0)
 		{
@@ -194,6 +194,11 @@ int main()
 				(-0.7717503200631555 * pow(duration, 2)) +
 				(0.29010378557538274 * pow(duration, 1)) +
 				(179.2459650286285 * pow(duration, 0));
+
+			if (angles[4] < 0)
+				angles[4] = 0;
+			else if (angles[4] > 350)
+				angles[4] = 350;
 		}
 		else if (currentAction == 2)
 		{
@@ -201,43 +206,6 @@ int main()
 		}
 
 		
-		
-		/* //cradle to rest
-		angles[0] = -0.08847149061058925 / (1.0 + exp(-5861.2986553395 * (duration - 0.4463415613754276))) + 180.5930084033614;
-		angles[1] = 113.92094070939986 / (1.0 + exp(-36.80468057067554 * (duration - 0.36783185167165916))) + 70.7262474226124;
-		angles[2] = -((100.16158050571426 / (1.0 + exp(-29.623944320336754 * (duration - 0.6227530305348828))) + 177.42072336886352) - .5) + .5 ;
-		angles[3] = 214 - 99.7 * duration + 78.4 * duration * duration;
-		angles[4] = 190 - 12.8 * duration + 11.9 * duration * duration;
-		*/
-
-		/*
-
-		if (angles[2] > 277.816)
-			angles[2] = 277.816;
-		else if (angles[2] < 177.32)
-			angles[2] = 177.32;
-		
-
-		if (angles[3] > 212.256)
-			angles[3] = 212.256;
-		else if(angles[3] < 170)
-			angles[3] = 170;
-		*/
-		/*if (angles[4] < 0)
-			angles[4] = 0;
-		else if (angles[4] > 350)
-			angles[4] = 350;
-			*/
-		/*if (angles[4] < 187.792)
-			angles[4] = 187.792;
-		else if (angles[4] > 195.624)
-			angles[4] = 195.624;
-			*/
-		for (int i = 0; i < 6; i++)
-		{
-			
-			//cout << "angle " << i << ": " << angles[i] << "\n";
-		}
 
 		edxl.setTorqueMult(idarr, torque, 6);
 		edxl.setAngleMult(idarr, angles, 6);
@@ -264,14 +232,14 @@ int main()
 
 		if (duration > .99)    //check for accuracy of this
 		{
+			currentAction++;
 
 
-			if (currentAction == 0)
-				startTime = currentTime;
+			
 			//else if (duration > 1)
 				//duration = 1;
 
-			currentAction++;
+			
 
 		}
 
