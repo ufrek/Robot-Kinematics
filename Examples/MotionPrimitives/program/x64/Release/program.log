@@ -34,10 +34,10 @@ C:\Users\User\Documents\aSpring 2022\Robot Kinematics\Projects\Robot-Kinematics\
               _Rep=__int64
           ]
 C:\Users\User\Documents\aSpring 2022\Robot Kinematics\Projects\Robot-Kinematics\Examples\MotionPrimitives\program\Source.cpp(39,9): warning C4101: 'start_time': unreferenced local variable
-C:\Users\User\Documents\aSpring 2022\Robot Kinematics\Projects\Robot-Kinematics\Examples\MotionPrimitives\program\Source.cpp(60,11): warning C4101: 'd': unreferenced local variable
   Generating code
-  181 of 189 functions (95.8%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+  1 of 194 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
   Finished generating code
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+easy_dynamixel.lib(easy_dynamixel.obj) : warning LNK4099: PDB 'easy_dynamixel.pdb' was not found with 'easy_dynamixel.lib(easy_dynamixel.obj)' or at 'C:\Users\User\Documents\aSpring 2022\Robot Kinematics\Projects\Robot-Kinematics\Examples\MotionPrimitives\x64\Release\easy_dynamixel.pdb'; linking object as if no debug info
   program.vcxproj -> C:\Users\User\Documents\aSpring 2022\Robot Kinematics\Projects\Robot-Kinematics\Examples\MotionPrimitives\x64\Release\MotionPrimitives.exe

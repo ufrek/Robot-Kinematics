@@ -26,12 +26,12 @@ double angles[] = { 180.3, 71, 272.27, 226.33, 189.16, 129.4 };
 
 // 1 enables Torque
 int torque[] = { 1, 1, 1, 1, 1, 1 };
-char com[6] = "COM13";
+char com[6] = "COM11";
 
 int main()
 {
-	//Easydxl edxl(com);
-	//edxl.setTorqueMult(idarr, torque, 6);
+	Easydxl edxl(com);
+	edxl.setTorqueMult(idarr, torque, 6);
 	std::ofstream file;
 	file.open("angles.txt");
 
@@ -41,7 +41,7 @@ int main()
 	auto startTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 
 	//alter this to slow it down? I think
-	float timeFactor = .0015f;
+	float timeFactor = .00015f;
 	double angles[] = { 0, 0, 0, 0, 0, 0 };
 
 	
@@ -54,15 +54,10 @@ int main()
 		//CHECK THIS		
 		if (duration * timeFactor  >= 280)
 			break;
-		duration *= timeFactor;
+		//duration *= timeFactor;
 		//cout << duration << "\n";
 
-		double* d;
-		//d = edxl.getAngleMult(idarr, 6);
-		for (int i = 0; i < 6; i++)
-		{
-			//angles[i] = d[i];
-		}
+		
 
 		// a / (1.0 + exp(x - d))) + b 
 		//x = time
@@ -70,9 +65,11 @@ int main()
 
 		angles[0] = -0.08847149061058925 / (1.0 + exp(-5861.2986553395 * (duration - 0.4463415613754276))) + 180.5930084033614;
 		angles[1] = 113.92094070939986 / (1.0 + exp(-36.80468057067554 * (duration - 0.36783185167165916))) + 70.7262474226124;
-		angles[2] = -log((100.16158050571426 - (2 * duration * 177.42072336886352)) / (duration * 177.42072336886352)) / 29.623944320336754 - 0.6227530305348828;
+		angles[2] = -((100.16158050571426 / (1.0 + exp(-29.623944320336754 * (duration - 0.6227530305348828))) + 177.42072336886352) - .5) + .5 ;
 		angles[3] = 214 - 99.7 * duration + 78.4 * duration * duration;
 		angles[4] = 190 - 12.8 * duration + 11.9 * duration * duration;
+		
+
 		
 
 		if (angles[2] > 277.816)
@@ -86,21 +83,26 @@ int main()
 		else if(angles[3] < 170)
 			angles[3] = 170;
 
-		if (angles[4] < 187.792)
+		if (angles[4] < 0)
+			angles[4] = 0;
+		else if (angles[4] > 350)
+			angles[4] = 350;
+
+		/*if (angles[4] < 187.792)
 			angles[4] = 187.792;
 		else if (angles[4] > 195.624)
 			angles[4] = 195.624;
-
+			*/
 		for (int i = 0; i < 6; i++)
 		{
 			
 			//cout << "angle " << i << ": " << angles[i] << "\n";
 		}
 
-		//edxl.setTorqueMult(idarr, torque, 6);
-		//edxl.setAngleMult(idarr, angles, 6);
+		edxl.setTorqueMult(idarr, torque, 6);
+		edxl.setAngleMult(idarr, angles, 6);
 		
-		cout << angles[1] << "\n";
+		cout << angles[3] << "\n";
 		file << angles[0] << "," << angles[1] << "," << angles[2] << "," << angles[3] << "," << angles[4] << "," << angles[5] << "\n";
 		totalRuns++;
 		if (totalRuns == 269)
@@ -108,15 +110,15 @@ int main()
 			for (int i = 0; i < 6; i++)
 			{
 				
-				cout << "angle " << i << ": " << angles[i] << "\n";
+				//cout << "angle " << i << ": " << angles[i] << "\n";
 			}
-			break;
+			//break;
 		}
 			
 		if (GetKeyState('Q') & 0x8000)  //Check if high-order bit is set (1 << 15)
 		{
 			printf("Application Closed. You pressed Q.");
-			//edxl.closePort();
+			edxl.closePort();
 			break;
 		}
 
@@ -127,11 +129,11 @@ int main()
 
 	cout << "total runs: " << totalRuns;
 		int close[] = { 0, 0, 0, 0, 0, 0 };
-		//edxl.setTorqueMult(idarr, close, 6);
+		edxl.setTorqueMult(idarr, close, 6);
 		sleep_for(10ns);
 
 		printf("Application Closed.");
-		//edxl.closePort();
+		edxl.closePort();
 
 
 
