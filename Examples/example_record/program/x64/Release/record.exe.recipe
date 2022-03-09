@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\User\Documents\aSpring 2022\Robot Kinematics\dynamixel\Examples\example_record\x64\Release\record.exe</FullPath>
+      <FullPath>C:\Users\User\Documents\aSpring 2022\Robot Kinematics\Projects\Robot-Kinematics\Examples\example_record\x64\Release\record.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

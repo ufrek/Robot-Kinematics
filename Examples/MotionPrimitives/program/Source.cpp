@@ -26,7 +26,7 @@ double angles[] = { 180.3, 71, 272.27, 226.33, 189.16, 129.4 };
 
 // 1 enables Torque
 int torque[] = { 1, 1, 1, 1, 1, 1 };
-char com[6] = "COM11";
+char com[6] = "COM13";
 
 int main()
 {
