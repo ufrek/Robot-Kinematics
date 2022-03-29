@@ -32,6 +32,8 @@ Eigen::Matrix4f a5;
 Eigen::Matrix4f a6;
 Eigen::Matrix4f tfinal;
 
+double positionArray[3];
+
 double line0[3] = { 0, 0, 113.25 };
 double line1[3] = { pi / 2, 0, 0 };
 double line2[3] = { 0, 200, 0 };
@@ -68,6 +70,19 @@ Eigen::Matrix4f cdhparam(double* angles)
 	tfinal = a0 * a1 * a2 * a3 * a4 * a5 * a6;
 	return tfinal;
 }
+
+double* getXYZ(double* angleArray)
+{
+	Eigen::Matrix4f result = cdhparam(angleArray);
+	double x = result.coeff(0, 3);
+	double y = result.coeff(1, 3);
+	double z = result.coeff(2, 3);
+	positionArray[0] = x;
+	positionArray[1] = y;
+	positionArray[2] = z;
+	return positionArray;
+}
+
 
 //motion primitve stuff
 double output[6];
@@ -473,7 +488,7 @@ int main() {
 
 
 	//use this to set the speed of the actions of the robot arm
-	float timeIncrementFactor = .001;
+	float timeIncrementFactor = 1 / 269;
 
 	//use this to set the speed of transition between actions
 	float weightIncrementFactor = .001;
@@ -540,8 +555,8 @@ int main() {
 				angles[i] = temp;
 			}
 
-			weights[0] -= timeIncrementFactor;
-			weights[1] += timeIncrementFactor;
+			weights[0] -= weightIncrementFactor;
+			weights[1] += weightIncrementFactor;
 
 			if (weights[1] >= 1)
 			{
@@ -555,15 +570,24 @@ int main() {
 			{
 				//std::cout << output[i] << " , ";
 				angles[i] = output[i];
-				std::cout << angles[i] << " , ";
+				//std::cout << angles[i] << " , ";
 
 			}
-			std::cout << "\n";
+			//std::cout << "\n";
 
-			float temp = duration[currentAction] + .0005; ///has to be hardcoded for some reason
+			float temp = duration[currentAction] + timeIncrementFactor; ///has to be hardcoded for some reason
 
 			duration[currentAction] = temp;
 		}
+
+		double* motorPositions = getXYZ(angles);
+		for (int i = 0; i < 3; i++)
+		{
+			std:: cout << motorPositions[i] << ", ";
+		}
+		std::cout << "\n";
+
+
 
 		edxl.setTorqueMult(idarr, torque, 6);
 		edxl.setAngleMult(idarr, angles, 6);
@@ -585,6 +609,15 @@ int main() {
 		{
 			duration[currentAction] = 1;
 			currentAction++;
+
+			if (currentAction == 1)
+			{
+				timeIncrementFactor = 1 / 739;
+			}
+			else if (currentAction == 2)
+			{
+				timeIncrementFactor = 1 / 269;
+			}
 
 			
 
