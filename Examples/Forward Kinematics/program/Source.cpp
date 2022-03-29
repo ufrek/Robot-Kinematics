@@ -488,7 +488,7 @@ int main() {
 
 
 	//use this to set the speed of the actions of the robot arm
-	float timeIncrementFactor = 1 / 269;
+	float timeIncrementFactor = 1.0 / 269.0;
 
 	//use this to set the speed of transition between actions
 	float weightIncrementFactor = .001;
@@ -574,7 +574,7 @@ int main() {
 
 			}
 			//std::cout << "\n";
-
+			
 			float temp = duration[currentAction] + timeIncrementFactor; ///has to be hardcoded for some reason
 
 			duration[currentAction] = temp;
@@ -585,7 +585,7 @@ int main() {
 		{
 			std:: cout << motorPositions[i] << ", ";
 		}
-		std::cout << "\n";
+		//std::cout << "\n";
 
 
 
@@ -612,11 +612,11 @@ int main() {
 
 			if (currentAction == 1)
 			{
-				timeIncrementFactor = 1 / 739;
+				timeIncrementFactor = 1.0 / 739.0;
 			}
 			else if (currentAction == 2)
 			{
-				timeIncrementFactor = 1 / 269;
+				timeIncrementFactor = 1.0 / 269.0;
 			}
 
 			

@@ -39,8 +39,8 @@ C:\Users\User\Documents\aSpring 2022\Robot Kinematics\Projects\Robot-Kinematics\
 C:\Users\User\Documents\aSpring 2022\Robot Kinematics\Projects\Robot-Kinematics\Examples\Forward Kinematics\program\Source.cpp(50,43): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
 C:\Users\User\Documents\aSpring 2022\Robot Kinematics\Projects\Robot-Kinematics\Examples\Forward Kinematics\program\Source.cpp(50,60): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
 C:\Users\User\Documents\aSpring 2022\Robot Kinematics\Projects\Robot-Kinematics\Examples\Forward Kinematics\program\Source.cpp(50,79): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\User\Documents\aSpring 2022\Robot Kinematics\Projects\Robot-Kinematics\Examples\Forward Kinematics\program\Source.cpp(491,41): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\User\Documents\aSpring 2022\Robot Kinematics\Projects\Robot-Kinematics\Examples\Forward Kinematics\program\Source.cpp(494,36): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\User\Documents\aSpring 2022\Robot Kinematics\Projects\Robot-Kinematics\Examples\Forward Kinematics\program\Source.cpp(578,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Generating code
   1 of 605 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
