@@ -3,11 +3,11 @@
 class Action
 {
 public:
-	Action(std::vector<double> w, std::vector<double> c, std::vector<double>sdev);
-
-private:
+	Action(char *inpath[9]);
 	std::vector<double> weights;
 	std::vector<double> centers;
 	std::vector<double> stdev;
+private:
+	
 };
 
