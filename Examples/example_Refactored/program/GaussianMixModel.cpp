@@ -7,9 +7,9 @@
 std::vector<double> output(6);
 
 
-GaussianMixModel::GaussianMixModel(std::list<Action> actions)
+GaussianMixModel::GaussianMixModel(std::vector<Action> a) : actions(a)
 {
-	//put actions here
+	
 }
 
 void GaussianMixModel::cradleToHomeAngles(float duration)
@@ -403,4 +403,11 @@ std::vector<double> GaussianMixModel::CalculateMotorAngles(int actionIndex, std:
 	}
 
 	return output;
+}
+
+std::vector<double> GaussianMixModel::GetActionAngles(int actionIndex, std::vector<float>duration)
+{
+	Action a = actions.at(actionIndex);
+	 std::vector<double> result = a.CalculateAngles(duration.at(actionIndex));
+	 return result;
 }

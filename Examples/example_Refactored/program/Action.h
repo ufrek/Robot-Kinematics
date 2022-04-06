@@ -1,13 +1,20 @@
 #pragma once
 #include <vector>
+#include "MotorModel.h"
+#include <list>
 class Action
 {
 public:
-	Action(std::vector<double> w, std::vector<double> c, std::vector<double>sdev);
+	Action();
+	std::vector<double> CalculateAngles(float duration);
+	static double angleFromGaussian(MotorModel m, float duration);
+	
+
+	
 
 private:
-	std::vector<double> weights;
-	std::vector<double> centers;
-	std::vector<double> stdev;
+	
+	
+	
 };
 
