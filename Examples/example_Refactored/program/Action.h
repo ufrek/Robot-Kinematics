@@ -5,7 +5,7 @@
 class Action
 {
 public:
-	Action(char *inpath[100]);
+	Action(char inpath[40]);
 	std::vector<double> weights;
 	std::vector<double> centers;
 	std::vector<double> stdev;

@@ -85,7 +85,7 @@ int main()
 	edxl.setTorqueMult(idarr, torque, 6);
 	std::vector<Action> actionVector;
 	char test[40] = "../../../cradleToHome.csv";
-	cth = *new Action(test);
+	cth = *new Action("../../../cradleToHome.csv");
 
 	actionVector.push_back(cth);
 	
