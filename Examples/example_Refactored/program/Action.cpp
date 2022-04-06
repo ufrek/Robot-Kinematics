@@ -43,7 +43,7 @@ MotorModel model3;
 MotorModel model4;
 MotorModel model5;
 
-Action::Action(const char* inpath[9])
+Action::Action(char* inpath[100])
 {
 	std::vector<double> weights;
 	std::vector<double> centers;
