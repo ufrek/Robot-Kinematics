@@ -1,13 +1,14 @@
 #include "GaussianMixModel.h"
 #include <math.h>
+#include "Action.h"
 #include <vector>
 #include <list>
-#include "Action.h"
+#include <iostream>
 
 std::vector<double> output(6);
+std::vector<Action> actions;
 
-
-GaussianMixModel::GaussianMixModel(std::vector<Action> a) : actions(a)
+GaussianMixModel::GaussianMixModel()  
 {
 	
 }
@@ -36,7 +37,7 @@ void GaussianMixModel::cradleToHomeAngles(float duration)
 			0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[1] = angleFromGaussian(duration, weights1, centers1, deviations1);
+	output[1] = GaussianMixModel::angleFromGaussian(duration, weights1, centers1, deviations1);
 
 
 
@@ -59,7 +60,7 @@ void GaussianMixModel::cradleToHomeAngles(float duration)
 							0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[2] = angleFromGaussian(duration, weights2, centers2, deviations2);
+	output[2] = GaussianMixModel::angleFromGaussian(duration, weights2, centers2, deviations2);
 
 	///////////////Motor: 3
 	double weights3[15] = {
@@ -67,6 +68,8 @@ void GaussianMixModel::cradleToHomeAngles(float duration)
 							25.0135678824, 8.3720918940, 53.5400356683, -35.9056984151, 73.5380302905,
 							-22.7319480377, 66.1180981219, -1.0744800578, 68.3131014906, 137.0858012698
 	};
+
+	
 
 	double centers3[15] = {
 							0.0000000000, 0.0769230769, 0.1538461538, 0.2307692308, 0.3076923077,
@@ -80,7 +83,7 @@ void GaussianMixModel::cradleToHomeAngles(float duration)
 								0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[3] = angleFromGaussian(duration, weights3, centers3, deviations3);
+	output[3] = GaussianMixModel::angleFromGaussian(duration, weights3, centers3, deviations3);
 
 	///////////////Motor: 4
 	double weights4[15] = {
@@ -101,7 +104,7 @@ void GaussianMixModel::cradleToHomeAngles(float duration)
 			0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[4] = angleFromGaussian(duration, weights4, centers4, deviations4);
+	output[4] = GaussianMixModel::angleFromGaussian(duration, weights4, centers4, deviations4);
 	if (output[4] < 350)
 		output[4] = 350;
 
@@ -125,7 +128,7 @@ void GaussianMixModel::cradleToHomeAngles(float duration)
 								0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[5] = angleFromGaussian(duration, weights5, centers5, deviations5);
+	output[5] = GaussianMixModel::angleFromGaussian(duration, weights5, centers5, deviations5);
 
 
 
@@ -152,7 +155,7 @@ void GaussianMixModel::DrawAngles(float duration)
 					0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[0] = angleFromGaussian(duration, weights0, centers0, deviations0);
+	output[0] = GaussianMixModel::angleFromGaussian(duration, weights0, centers0, deviations0);
 
 	/////Motor: 1
 	double weights1[15] = {
@@ -173,7 +176,7 @@ void GaussianMixModel::DrawAngles(float duration)
 							0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[1] = angleFromGaussian(duration, weights1, centers1, deviations1);
+	output[1] = GaussianMixModel::angleFromGaussian(duration, weights1, centers1, deviations1);
 
 
 	//Motor: 2
@@ -196,7 +199,7 @@ void GaussianMixModel::DrawAngles(float duration)
 								0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[2] = angleFromGaussian(duration, weights2, centers2, deviations2);
+	output[2] = GaussianMixModel::angleFromGaussian(duration, weights2, centers2, deviations2);
 
 	////Motor: 3
 	double weights3[15] = {
@@ -217,7 +220,7 @@ void GaussianMixModel::DrawAngles(float duration)
 								0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[3] = angleFromGaussian(duration, weights3, centers3, deviations3);
+	output[3] = GaussianMixModel::angleFromGaussian(duration, weights3, centers3, deviations3);
 
 	///Motor: 4
 	double weights4[15] = {
@@ -238,7 +241,7 @@ void GaussianMixModel::DrawAngles(float duration)
 								0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[4] = angleFromGaussian(duration, weights4, centers4, deviations4);
+	output[4] = GaussianMixModel::angleFromGaussian(duration, weights4, centers4, deviations4);
 
 	//Motor: 5
 	double weights5[15] = {
@@ -259,7 +262,7 @@ void GaussianMixModel::DrawAngles(float duration)
 								0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[5] = angleFromGaussian(duration, weights5, centers5, deviations5);
+	output[5] = GaussianMixModel::angleFromGaussian(duration, weights5, centers5, deviations5);
 }
 
 void GaussianMixModel::homeToCradleAngles(float duration)
@@ -285,7 +288,7 @@ void GaussianMixModel::homeToCradleAngles(float duration)
 							0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[1] = angleFromGaussian(duration, weights1, centers1, deviations1);
+	output[1] = GaussianMixModel::angleFromGaussian(duration, weights1, centers1, deviations1);
 
 	/////Motor: 2
 	double weights2[15] = {
@@ -306,7 +309,7 @@ void GaussianMixModel::homeToCradleAngles(float duration)
 							0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[2] = angleFromGaussian(duration, weights2, centers2, deviations2);
+	output[2] = GaussianMixModel::angleFromGaussian(duration, weights2, centers2, deviations2);
 
 	////Motor: 3
 	double weights3[15] = {
@@ -327,7 +330,7 @@ void GaussianMixModel::homeToCradleAngles(float duration)
 							0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[3] = angleFromGaussian(duration, weights3, centers3, deviations3);
+	output[3] = GaussianMixModel::angleFromGaussian(duration, weights3, centers3, deviations3);
 
 	////Motor: 4
 	double weights4[15] = {
@@ -348,7 +351,7 @@ void GaussianMixModel::homeToCradleAngles(float duration)
 							0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[4] = angleFromGaussian(duration, weights4, centers4, deviations4);
+	output[4] = GaussianMixModel::angleFromGaussian(duration, weights4, centers4, deviations4);
 
 	//Motor: 5
 	double weights5[15] = {
@@ -369,7 +372,7 @@ void GaussianMixModel::homeToCradleAngles(float duration)
 							0.0714285714, 0.0714285714, 0.0714285714, 0.0714285714, 0.0
 	};
 
-	output[5] = angleFromGaussian(duration, weights5, centers5, deviations5);
+	output[5] = GaussianMixModel::angleFromGaussian(duration, weights5, centers5, deviations5);
 }
 
 //takes in parameters to add all indiviual gaussians and return an angle
@@ -407,7 +410,20 @@ std::vector<double> GaussianMixModel::CalculateMotorAngles(int actionIndex, std:
 
 std::vector<double> GaussianMixModel::GetActionAngles(int actionIndex, std::vector<float>duration)
 {
-	Action a = actions.at(actionIndex);
-	 std::vector<double> result = a.CalculateAngles(duration.at(actionIndex));
-	 return result;
+	if (actionIndex < actions.size())
+	{
+		Action a = actions.at(actionIndex);
+		std::vector<double> result = a.CalculateActionAngles(duration.at(actionIndex));
+		return result;
+	}
+	else
+		return std::vector<double>(6, -999);
 }
+
+void GaussianMixModel::addAction(std::string filePath)
+{
+	Action* a = new Action(filePath);
+	
+	actions.push_back(*a);
+}
+

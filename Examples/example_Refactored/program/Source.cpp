@@ -5,6 +5,7 @@
 #include <math.h>
 #include <chrono>
 #include <thread>
+#include <string>
 #include "dynamixel_sdk.h" 
 #include "easy_dynamixel.h"
 #include "ForwardKinematics.h"
@@ -44,7 +45,7 @@ int toggle[] = { 0,0,0,0,0,0,0 };
 
 std:: vector<double> outputAngles(6);
 
-void transitionActions(int currentAction)
+void transitionActions(int currentAction, GaussianMixModel* model)
 {
 	std::cout << "TRANSITION: \n";
 	std::vector<double> oldAction(6);
@@ -52,14 +53,14 @@ void transitionActions(int currentAction)
 	{
 			oldAction = outputAngles;
 		
-		outputAngles = GaussianMixModel::CalculateMotorAngles(currentAction, durations);
+		outputAngles = model->GetActionAngles(currentAction, durations);
 	}
 
 	if (currentAction == 2)
 	{
 			oldAction = outputAngles;
 		
-			outputAngles = GaussianMixModel::CalculateMotorAngles(currentAction, durations);
+			outputAngles = model->GetActionAngles(currentAction, durations);
 	}
 
 
@@ -77,27 +78,33 @@ void transitionActions(int currentAction)
 		isTransitioning = false;;
 	}
 }
-Action cth;
+
 
 int main()
 {
 	Easydxl edxl(com);
 	edxl.setTorqueMult(idarr, torque, 6);
-	std::vector<Action> actionVector;
-	char test[40] = "../../../cradleToHome.csv";
-	cth = *new Action(test);
 
-	actionVector.push_back(cth);
+	GaussianMixModel* mixModel = new GaussianMixModel();
+	mixModel->addAction("cradleToHome.csv");
+	mixModel->addAction("drawLine.csv");
+	mixModel->addAction("homeToCradle.csv");
+	
+	//add all actionsto MixModel
+	//mixModel->newAction(cradleToHome);
+	//mixModel->newAction(DrawAction);
+	//mixModel->newAction(homeToCradle);
 	
 	
 	while (1) 
 	{
 
-		outputAngles = GaussianMixModel::CalculateMotorAngles(currentAction, durations);
-		
+		//outputAngles = GaussianMixModel::GetActionAngles(currentAction, durations);
+		outputAngles = mixModel->GetActionAngles(currentAction, durations);
+
 		if (isTransitioning)
 		{
-			transitionActions(currentAction);
+			transitionActions(currentAction, mixModel);
 		}
 		else
 		{
@@ -126,7 +133,7 @@ int main()
 		edxl.setAngleMult(idarr, angles, 6);
 
 
-
+		//if duration reaches end, transition to next action
 		if (durations[currentAction] >= 1)
 		{
 			durations[currentAction] = 1;

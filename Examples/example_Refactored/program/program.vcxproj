@@ -149,6 +149,7 @@
     <ClCompile Include="GaussianMixModel.cpp" />
     <ClCompile Include="MotorModel.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TrainingData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="ForwardKinematics.h" />
     <ClInclude Include="GaussianMixModel.h" />
     <ClInclude Include="MotorModel.h" />
+    <ClInclude Include="TrainingData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

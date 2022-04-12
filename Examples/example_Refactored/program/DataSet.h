@@ -1,11 +1,14 @@
 #pragma once
+#ifndef DATASET_H
+#define DATASET_H
 class DataSet
 {
 private:
 	
 public:
-	virtual void cradleToHomeAngles(float duration);
-	virtual void DrawAngles(float duration);
-	virtual void homeToCradleAngles(float duration);
-	virtual void CalculateMotorAngles(int actionIndex);
+	void cradleToHomeAngles(float duration) {};
+	void DrawAngles(float duration) {};
+	void homeToCradleAngles(float duration) {};
+	void CalculateMotorAngles(int actionIndex) {};
 };
+#endif

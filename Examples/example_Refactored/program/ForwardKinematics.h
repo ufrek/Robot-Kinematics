@@ -1,4 +1,7 @@
 #pragma once
+
+#ifndef FORWARDKINEMATICS_H
+#define FORWARDKINEMATICS_H
 #include "Eigen/Dense"
 
 
@@ -17,4 +20,4 @@ public:
 	static double* getXYZ(double* angleArray);
 	static double torad(double angle);
 };
-
+#endif
