@@ -95,17 +95,17 @@ int main(int argc, char* argv[])
 
 //TODO:: Fix the can't find file errors in here and make sure this runs the way it's supposed to
 	std::vector<Action> actionVector;
-	char test[50] = "cradleToHome.csv";
+	char test[50] = "/../../cradleToHome.csv";
 	Action cth = *new Action(test);
 	actionVector.push_back(cth);
 	numberOfActions++; //increment actions each time you add a new one
 	
-	char test2[50] = "drawLine.csv";
+	char test2[50] = "/../../drawLine.csv";
 	Action draw = *new Action(test2);
 	actionVector.push_back(draw);
 	numberOfActions++;
 
-	char test3[50] = "homeToCradle.csv";
+	char test3[50] = "/../../homeToCradle.csv";
 	Action htc = *new Action(test3);
 	actionVector.push_back(htc);
 	numberOfActions++;
@@ -114,9 +114,9 @@ int main(int argc, char* argv[])
 
 //TODO: fix the file directories for these files
 	TrainingData* tData = new TrainingData();
-	char test4[50] = "cradleToHome.csv";
-	char test5[50] = "cradleToHome.csv";
-	char test6[50] = "cradleToHome.csv";
+	char test4[50] = "/../../cradleToHome.csv";
+	char test5[50] = "/../../cradleToHome.csv";
+	char test6[50] = "/../../cradleToHome.csv";
 	tData->importAction(test4);
 	tData->importAction(test5);
 	tData->importAction(test6);
