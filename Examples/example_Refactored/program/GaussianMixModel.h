@@ -1,23 +1,17 @@
 #pragma once
-
-#ifndef GAUSSIANMIXMODEL_H
-#define GAUSSIANMIXMODEL_H
-
 #include "DataSet.h"
 #include <vector>
 #include<list>
-#include "Action.h"
 
 class GaussianMixModel :
     public DataSet
 {
 	private:
 		static double angleFromGaussian(float duration, double* weights, double* centers, double* std);
-		
-
+		std::vector<Action> actions;
 
 	public:
-		GaussianMixModel();
+		GaussianMixModel(std::vector<Action> a);
 		//can make non-static version later
 		static std::vector<double> CalculateMotorAngles(int actionIndex, std::vector<float> duration);
 		static void cradleToHomeAngles(float duration);
@@ -25,10 +19,8 @@ class GaussianMixModel :
 		static void homeToCradleAngles(float duration);
 
 		std::vector<double> GetActionAngles(int actionIndex, std::vector<float>duration);
-		void addAction(std::string filePath);
 
 
 	
 };
-#endif
 

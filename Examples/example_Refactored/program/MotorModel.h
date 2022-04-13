@@ -1,6 +1,4 @@
 #pragma once
-#ifndef MOTORMODEL_H
-#define MOTORMODEL_H
 #include <vector>
 class MotorModel
 {
@@ -16,4 +14,4 @@ private:
 	std::vector<double> stdev;
 
 };
-#endif
+

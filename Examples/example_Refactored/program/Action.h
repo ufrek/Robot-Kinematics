@@ -1,25 +1,16 @@
 #pragma once
-#ifndef ACTION_H
-#define ACTION_H
 #include <vector>
 #include "MotorModel.h"
 #include <list>
-#include <string>
-
-
 class Action
 {
 public:
-	Action(std::string inpath);
-	std::vector<double> CalculateActionAngles(float duration);
-	static double actionAngleFromGaussian(MotorModel m, float duration);
-	
-
-	
-
-private:
-	
-	
+	Action(char inpath[40]);
+	std::vector<double> weights;
+	std::vector<double> centers;
+	std::vector<double> stdev;
+	std::vector<double> CalculateAngles(float duration);
+	static double angleFromGaussian(MotorModel m, float duration);
 	
 };
-#endif
+
