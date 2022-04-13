@@ -11,6 +11,12 @@
 #include <iostream>
 #include "GaussianMixModel.h"
 #include "Action.h"
+#include "TrainingData.h"
+
+
+
+
+
 using namespace std::chrono;
 using namespace std::this_thread;
 
@@ -23,16 +29,17 @@ float timeIncrementFactor = (float)(1.0 / 269.0);
 //use this to set the speed of transition between actions
 float weightIncrementFactor = (float).001;
 
-std::vector<float> durations(3, 0);  //cradle to home, draw, home to cradle
+std::vector<float> durations(3);  //cradle to home, draw, home to cradle
 
 float weights[2] = { 0,0 };
 
-int numberOfActions = 2;
+int numberOfActions = 0;
 
 
 // Don't set an angle to motor 3.
 int idarr[] = { 1, 2, 4, 5, 6, 7 };
 double angles[] = { 180.3, 71, 272.27, 226.33, 189.16, 129.4 };
+double Tangles[] = { 180.3, 71, 272.27, 226.33, 189.16, 129.4 };
 
 // 1 enables Torque
 int torque[] = { 0, 0, 0, 0, 0, 0 };
@@ -43,30 +50,30 @@ int currentLight = 0;
 int toggle[] = { 0,0,0,0,0,0,0 };
 
 std:: vector<double> outputAngles(6);
+std::vector<double> trainingAngles(6); // thes are the angles from the training data
 
-void transitionActions(int currentAction)
+void transitionActions(int currentAction, GaussianMixModel* model, TrainingData* t)
 {
 	std::cout << "TRANSITION: \n";
 	std::vector<double> oldAction(6);
-	if (currentAction == 1)
-	{
-			oldAction = outputAngles;
-		
-		outputAngles = GaussianMixModel::CalculateMotorAngles(currentAction, durations);
-	}
+	std::vector<double> oldTAction(6);
+	
+	oldAction = outputAngles;
+	oldTAction = trainingAngles;
 
-	if (currentAction == 2)
-	{
-			oldAction = outputAngles;
 		
-			outputAngles = GaussianMixModel::CalculateMotorAngles(currentAction, durations);
-	}
+	outputAngles = model->GetActionAngles(currentAction, durations);
+	trainingAngles = t->GetAngle(currentAction, durations);
+
 
 
 	for (int i = 0; i < 6; i++)
 	{
 		double temp = (weights[1] * outputAngles[i]) + (weights[0] * oldAction[i]);
 		angles[i] = temp;
+
+		double temp2 = (weights[1] * trainingAngles[i]) + (weights[0] * oldTAction[i]);
+		Tangles[i] = temp;
 	}
 
 	weights[0] -= weightIncrementFactor;
@@ -77,27 +84,60 @@ void transitionActions(int currentAction)
 		isTransitioning = false;;
 	}
 }
-Action cth;
 
-int main()
+
+int main(int argc, char* argv[])
 {
+	std::cout << argv[0];
+
 	Easydxl edxl(com);
 	edxl.setTorqueMult(idarr, torque, 6);
-	std::vector<Action> actionVector;
-	char test[40] = "../../../cradleToHome.csv";
-	cth = *new Action(test);
 
+//TODO:: Fix the can't find file errors in here and make sure this runs the way it's supposed to
+	std::vector<Action> actionVector;
+	char test[50] = "cradleToHome.csv";
+	Action cth = *new Action(test);
 	actionVector.push_back(cth);
+	numberOfActions++; //increment actions each time you add a new one
+	
+	char test2[50] = "drawLine.csv";
+	Action draw = *new Action(test2);
+	actionVector.push_back(draw);
+	numberOfActions++;
+
+	char test3[50] = "homeToCradle.csv";
+	Action htc = *new Action(test3);
+	actionVector.push_back(htc);
+	numberOfActions++;
+
+	GaussianMixModel *mixModel = new GaussianMixModel(actionVector);
+
+//TODO: fix the file directories for these files
+	TrainingData* tData = new TrainingData();
+	char test4[50] = "cradleToHome.csv";
+	char test5[50] = "cradleToHome.csv";
+	char test6[50] = "cradleToHome.csv";
+	tData->importAction(test4);
+	tData->importAction(test5);
+	tData->importAction(test6);
+//test to make sure thimeIncrementFactor works,
+//this should scale the time increments based on the length of the training data of the current action
+//The first one shoule make this = to 1 / (269 * 2)
+	timeIncrementFactor =  1 / (tData->getActionSize(currentAction) * 2); 
+
+
 	
 	
 	while (1) 
 	{
 
-		outputAngles = GaussianMixModel::CalculateMotorAngles(currentAction, durations);
+		outputAngles = mixModel->GetActionAngles(currentAction, durations);
+//check this
+		trainingAngles = tData->GetAngle(currentAction, durations);
 		
 		if (isTransitioning)
 		{
-			transitionActions(currentAction);
+			transitionActions(currentAction, mixModel, tData);
 		}
 		else
 		{
@@ -105,6 +145,7 @@ int main()
 			{
 				//std::cout << output[i] << " , ";
 				angles[i] = outputAngles[i];
+				Tangles[i] = trainingAngles[i];
 
 			}
 			//std::cout << "\n";
@@ -116,13 +157,17 @@ int main()
 		}
 
 		double* motorPositions = ForwardKinematics::getXYZ(angles);
+		double* trainingPositions = ForwardKinematics::getXYZ(Tangles);
 		for (int i = 0; i < 3; i++)
 		{
+//Print training positions here
 			std::cout << motorPositions[i] << ", ";
 		}
 		std::cout << "\n";
 
 		edxl.setTorqueMult(idarr, torque, 6);
+
+		//can swap out angles for Tangles
 		edxl.setAngleMult(idarr, angles, 6);
 
 
@@ -131,15 +176,8 @@ int main()
 		{
 			durations[currentAction] = 1;
 			currentAction++;
-
-			if (currentAction == 1)
-			{
-				timeIncrementFactor = (float)(1.0 / 739.0);
-			}
-			else if (currentAction == 2)
-			{
-				timeIncrementFactor = (float)(1.0 / 269.0);
-			}
+			
+			timeIncrementFactor = 1 / (tData->getActionSize(currentAction) * 2);
 
 
 

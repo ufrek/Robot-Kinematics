@@ -1,14 +1,14 @@
 #pragma once
 #include "DataSet.h"
+#include "Action.h"
 #include <vector>
 #include<list>
 
-class GaussianMixModel :
-    public DataSet
+class GaussianMixModel 
 {
 	private:
 		static double angleFromGaussian(float duration, double* weights, double* centers, double* std);
-		std::vector<Action> actions;
+	
 
 	public:
 		GaussianMixModel(std::vector<Action> a);

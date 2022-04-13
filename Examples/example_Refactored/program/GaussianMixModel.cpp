@@ -5,11 +5,11 @@
 #include "Action.h"
 
 std::vector<double> output(6);
+std::vector<Action> actions;
 
-
-GaussianMixModel::GaussianMixModel(std::vector<Action> a) : actions(a)
+GaussianMixModel::GaussianMixModel(std::vector<Action> a) 
 {
-	
+	actions = a;
 }
 
 void GaussianMixModel::cradleToHomeAngles(float duration)
@@ -376,15 +376,15 @@ void GaussianMixModel::homeToCradleAngles(float duration)
 double GaussianMixModel::angleFromGaussian(float duration, double* weights, double* centers, double* std)
 {
 	//int len = *(&weights + 1) - weights;
-	double out = 0;
+	double o = 0;
 
 	for (int i = 0; i < 14; i++)  //
 	{
-		out = out + weights[i] * exp(-(pow((duration - centers[13 - i]), 2)) / (2 * pow(std[13 - i], 2)));    //centers an std are reversed to make the dot product work
+		o = o + weights[i] * exp(-(pow((duration - centers[13 - i]), 2)) / (2 * pow(std[13 - i], 2)));    //centers an std are reversed to make the dot product work
 
 	}
-	out = out + weights[14]; //make sure to include intercept
-	return out;
+	o = o + weights[14]; //make sure to include intercept
+	return o;
 }
 
 std::vector<double> GaussianMixModel::CalculateMotorAngles(int actionIndex, std::vector<float> duration)
@@ -405,9 +405,12 @@ std::vector<double> GaussianMixModel::CalculateMotorAngles(int actionIndex, std:
 	return output;
 }
 
-std::vector<double> GaussianMixModel::GetActionAngles(int actionIndex, std::vector<float>duration)
+std::vector<double> GaussianMixModel::GetActionAngles(int actionIndex, std::vector<float>dur)
 {
 	Action a = actions.at(actionIndex);
-	 std::vector<double> result = a.CalculateAngles(duration.at(actionIndex));
+	 std::vector<double> result = a.CalculateAngles(dur.at(actionIndex));
 	 return result;
+
+	//std:: vector<double> result(3, 0.0);
+	return result;
 }

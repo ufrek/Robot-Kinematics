@@ -13,9 +13,8 @@
 #include<list>
 #include "MotorModel.h"
 #include "GaussianMixModel.h"
-#include "GaussianMixModel.cpp"
 
-std::vector<MotorModel> motorModels;
+
 std::vector<double> weights0;
 std::vector<double> weights1;
 std::vector<double> weights2;
@@ -28,6 +27,7 @@ std::vector<double> centers2;
 std::vector<double> centers3;
 std::vector<double> centers4;
 std::vector<double> centers5;
+std::vector<double> standard_deviations;
 std::vector<double> standard_deviations0;
 std::vector<double> standard_deviations1;
 std::vector<double> standard_deviations2;
@@ -36,23 +36,22 @@ std::vector<double> standard_deviations4;
 std::vector<double> standard_deviations5;
 
 std::vector<MotorModel> motorModels;
-MotorModel model0;
-MotorModel model1;
-MotorModel model2;
-MotorModel model3;
-MotorModel model4;
-MotorModel model5;
 
-Action::Action(char inpath[40])
+std::vector<double> weights;
+std::vector<double> centers;
+std::vector<double> stdev;
+
+
+Action::Action(std::string inpath)
 {
 	std::vector<double> weights;
 	std::vector<double> centers;
 	std::vector<double> standard_deviations;
 
 	std::ifstream indata;
-	indata.open(*inpath); // Input csv file to read, "input.csv" or whatever.
+	indata.open(inpath); // Input csv file to read, "input.csv" or whatever.
 	char inputrow[3]; // row that is currently being read
-	double data[3]; // data that will be read and applied from read inputrow
+	double data[3]{ 0,0,0 }; // data that will be read and applied from read inputrow
 	
 	indata.getline(inputrow, 3, '\n'); // Reads in the first 3 elements and puts them into inputrow.
 	std::string var = ""; // no idea
@@ -132,18 +131,14 @@ Action::Action(char inpath[40])
 
 		}
 	}
-	model0 = *new MotorModel(weights0, centers0, standard_deviations0);
-	motorModels.push_back(model0);
-	model1 = *new MotorModel(weights1, centers1, standard_deviations1);
-	motorModels.push_back(model1);
-	model2 = *new MotorModel(weights2, centers2, standard_deviations2);
-	motorModels.push_back(model2);
-	model3 = *new MotorModel(weights3, centers3, standard_deviations3);
-	motorModels.push_back(model3);
-	model4 = *new MotorModel(weights4, centers4, standard_deviations4);
-	motorModels.push_back(model4);
-	model5 = *new MotorModel(weights5, centers5, standard_deviations5);
-	motorModels.push_back(model5);
+
+	motorModels.push_back(*new MotorModel(weights0, centers0, standard_deviations0));
+	
+	motorModels.push_back(*new MotorModel(weights1, centers1, standard_deviations1));
+	motorModels.push_back(*new MotorModel(weights2, centers2, standard_deviations2));
+	motorModels.push_back(*new MotorModel(weights3, centers3, standard_deviations3));
+	motorModels.push_back(*new MotorModel(weights4, centers4, standard_deviations4));
+	motorModels.push_back(*new MotorModel(weights5, centers5, standard_deviations5));
 	indata.close();
 }
 
@@ -165,7 +160,7 @@ double Action::angleFromGaussian(MotorModel m, float duration)
 	return out;
 }
 
-std::vector<double> CalculateAngles(float duration)
+std::vector<double> Action::CalculateAngles(float duration)
 {
 	std::vector<double> outAngles;
 	for (MotorModel m : motorModels)
