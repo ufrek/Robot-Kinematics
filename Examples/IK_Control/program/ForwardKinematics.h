@@ -19,5 +19,6 @@ private:
 public:
 	static double* getXYZ(double* angleArray);
 	static double torad(double angle);
+	static double getPi();
 };
 #endif

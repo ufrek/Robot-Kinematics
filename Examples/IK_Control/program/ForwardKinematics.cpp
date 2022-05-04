@@ -41,6 +41,11 @@ double ForwardKinematics::torad(double angle) {
 	return angle * (pi / 180.0);
 }
 
+double ForwardKinematics::getPi()
+{
+	return pi;
+}
+
 Eigen::Matrix4f cdhparam(double* angles)
 {
 	// Line list: in order: alpha, a, d

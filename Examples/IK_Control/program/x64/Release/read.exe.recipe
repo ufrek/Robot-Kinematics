@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\User\Documents\aSpring 2022\Robot Kinematics\dynamixel\Examples\example_read\x64\Release\read.exe</FullPath>
+      <FullPath>C:\Users\User\Documents\aSpring_2022\Robot_Kinematics\Projects\Robot-Kinematics\Examples\IK_Control\x64\Release\read.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
