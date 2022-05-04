@@ -70,7 +70,7 @@ void TrainingData::importAction(std::string inpath)
 				var = var + x;
 			}
 		}
-		printf("%f %f %f \n", data[0], data[1], data[2]);
+		//printf("%f %f %f \n", data[0], data[1], data[2]);
 
 		motor0Angles.push_back(data[0]);
 		motor1Angles.push_back(data[1]);

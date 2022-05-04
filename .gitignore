@@ -13,3 +13,4 @@ Examples/example_Refactored/.vs/read/v17/ipch/AutoPCH/99ebb5f09811dc52/SOURCE.ip
 Examples/example_Refactored/.vs/read/v17/ipch/AutoPCH/c878981c3f1624d3/MOTORMODEL.ipch
 Examples/example_Refactored/.vs/read/v17/ipch/AutoPCH/ce18f4cb7933ed40/SOURCE.ipch
 Examples/example_Refactored/.vs/read/v17/ipch/AutoPCH/e884303409f3f605/GAUSSIANMIXMODEL.ipch
+*.ipch

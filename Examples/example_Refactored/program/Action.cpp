@@ -42,21 +42,28 @@ std::vector<double> centers;
 std::vector<double> stdev;
 
 
-Action::Action(std::string inpath)
+Action::Action(const char* inpath)
 {
+	
 	std::vector<double> weights;
 	std::vector<double> centers;
 	std::vector<double> standard_deviations;
 
 	std::ifstream indata;
-	indata.open(inpath); // Input csv file to read, "input.csv" or whatever.
+	indata.open(inpath, std::ifstream::in); // Input csv file to read, "input.csv" or whatever.
+	if (indata.good())
+	{
+		std::cout << "good";
+	}
+	
 	char inputrow[3]; // row that is currently being read
 	double data[3]{ 0,0,0 }; // data that will be read and applied from read inputrow
 	
 	indata.getline(inputrow, 3, '\n'); // Reads in the first 3 elements and puts them into inputrow.
-	std::string var = ""; // no idea
+	std::string var = ""; // start with a blank string and concatenate characters as the lineis being read
 
 	for (char x : inputrow) {
+		std::cout << x;
 		if (x == ',') {
 			data[0] = std::stod(var);
 			var = "";
@@ -66,11 +73,14 @@ Action::Action(std::string inpath)
 		}
 	}
 	int weightcount = data[0]; // Gets the motor weight count from the first element in the file.
+	
 	int linecount = weightcount * 6; // Calculates total numbers of line to read.
 	
 	int counter = 0;
 	// Reads the remaining lines of the csv file and saves them into 3 vectors.
-	for (int i = 1; i < linecount; i++) {
+	for (int i = 1; i < linecount; i++) 
+	{
+		
 		int j = 0;
 		char row[100];
 		indata.getline(row, 100, '\n');
@@ -86,7 +96,8 @@ Action::Action(std::string inpath)
 			}
 		}
 		counter++;
-		printf("%f %f %f \n", data[0], data[1], data[2]);
+		data[0] = 5;
+		//printf("%f %f %f \n", data[0], data[1], data[2]);
 
 		weights.push_back(data[0]);
 		centers.push_back(data[1]);

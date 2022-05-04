@@ -33,7 +33,7 @@ std::vector<float> durations(3);  //cradle to home, draw, home to cradle
 
 float weights[2] = { 0,0 };
 
-int numberOfActions = 0;
+int numberOfActions = -1;  //first action is at index 0
 
 
 // Don't set an angle to motor 3.
@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
 
 //TODO:: Fix the can't find file errors in here and make sure this runs the way it's supposed to
 	std::vector<Action> actionVector;
-	char test[50] = "/../../cradleToHome.csv";
+	const char* test= "\\..\\..\\cradleToHome.csv";
 	Action cth = *new Action(test);
 	actionVector.push_back(cth);
 	numberOfActions++; //increment actions each time you add a new one
@@ -143,7 +143,7 @@ int main(int argc, char* argv[])
 		{
 			for (int i = 0; i < 6; i++)
 			{
-				//std::cout << output[i] << " , ";
+				//std::cout << outputAngles[i] << " , ";
 				angles[i] = outputAngles[i];
 				Tangles[i] = trainingAngles[i];
 
@@ -161,7 +161,7 @@ int main(int argc, char* argv[])
 		for (int i = 0; i < 3; i++)
 		{
 //Print training positions here
-			std::cout << motorPositions[i] << ", ";
+			//std::cout << motorPositions[i] << ", ";
 		}
 		std::cout << "\n";
 

@@ -7,7 +7,7 @@
 class Action
 {
 public:
-	Action(std::string inpath);
+	Action(const char* inpath);
 
 	std::vector<double> CalculateAngles(float duration);
 	static double angleFromGaussian(MotorModel m, float duration);
