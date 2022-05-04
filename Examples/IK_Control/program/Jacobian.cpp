@@ -6,9 +6,9 @@ Eigen::Matrix<double, 4, 4> Jacobian::getJacobian(std::vector<double> theta)
 {
     int rows = 4, cols = 4;
 
-    Eigen::MatrixXf m(rows, cols);
+    Eigen::MatrixXd m(rows, cols);
     //J[3, :] and J[:, 4] have been deleted
-    m << (Eigen::Matrix4d() <<
+    m << (Eigen::MatrixXd() <<
         ((-20.0 * sin(theta[1]) - 5.0 * cos(theta[1]) + 20.0 * cos(theta[1] +
             theta[3]) - 17.415 * cos(theta[1] + theta[3] + theta[4])) * sin(theta[0])), //J[0, 0]
 
@@ -53,27 +53,33 @@ Eigen::Matrix<double, 4, 4> Jacobian::getJacobian(std::vector<double> theta)
 }
 
 	
-double Jacobian::getChangeInAngles(std::vector<double> currentPositions, std::vector<double> deltaPositions)
+Eigen::MatrixXd Jacobian::getChangeInAngles(std::vector<double> currentPositions, std::vector<double> deltaPositions)
 {
     
-    Eigen::Matrix<double, 4, 4> jacobian = Jacobian::getJacobian(currentPositions);
+    Eigen::MatrixXd jacobian = Jacobian::getJacobian(currentPositions);
 
     if (std::abs(jacobian.determinant()) > .0001)
     {
         Eigen::Matrix4d jInverse = jacobian.inverse();
+
+        
         Eigen::Matrix<double, 4, 1>  m;
+        m << (deltaPositions[0], deltaPositions[1], deltaPositions[2], 0.5);
 
-//TODO: fix delta roll as last element with correct value
-        m << (Eigen::Matrix<double, 4, 1>() << deltaPositions[0], deltaPositions[1], deltaPositions[2], .5f).finished();
-
+        // Change in positions for x y and z.
+        // Worry about roll later.
+        
 //TODO: there is some kind of size error here I think
-        double deltaAngles = jInverse.dot(m);
+        //double deltaAngles = jInverse;
+        Eigen::MatrixXd deltaAngles = jInverse * m;
+        
+
         return deltaAngles;
         
     }
     else
     {
         std::cout << "Jacobian determinant too small";
-        return -999;
+        return jacobian;
     }
 }

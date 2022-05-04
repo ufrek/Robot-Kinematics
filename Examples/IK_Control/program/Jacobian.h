@@ -10,7 +10,7 @@ class Jacobian
 
 
 	public:
-		static double getChangeInAngles(std::vector<double> currentPositions, std::vector<double> deltaPositions);
+		static Eigen::MatrixXd getChangeInAngles(std::vector<double> currentPositions, std::vector<double> deltaPositions);
 
 };
 #endif

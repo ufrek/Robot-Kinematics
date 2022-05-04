@@ -1,14 +1,6 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(510,5): warning MSB8028: The intermediate directory (x64\Release\) contains files shared from another project (program.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(514,5): warning MSB8028: The intermediate directory (x64\Release\) contains files shared from another project (program.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   Jacobian.cpp
-C:\Users\User\Documents\aSpring_2022\Robot_Kinematics\dynamixel\Examples\IK_Control\program\Eigen\src\Core\Dot.h(74,3): error C2338: YOU_TRIED_CALLING_A_VECTOR_METHOD_ON_A_MATRIX
-C:\Users\User\Documents\aSpring_2022\Robot_Kinematics\dynamixel\Examples\IK_Control\program\Jacobian.cpp(68): message : see reference to function template instantiation 'double Eigen::MatrixBase<Derived>::dot<Eigen::Matrix<double,4,1,0,4,1>>(const Eigen::MatrixBase<Eigen::Matrix<double,4,1,0,4,1>> &) const' being compiled
-          with
-          [
-              Derived=Eigen::Matrix<double,4,4,0,4,4>
-          ]
-C:\Users\User\Documents\aSpring_2022\Robot_Kinematics\dynamixel\Examples\IK_Control\program\Jacobian.cpp(68): message : see reference to function template instantiation 'double Eigen::MatrixBase<Derived>::dot<Eigen::Matrix<double,4,1,0,4,1>>(const Eigen::MatrixBase<Eigen::Matrix<double,4,1,0,4,1>> &) const' being compiled
-          with
-          [
-              Derived=Eigen::Matrix<double,4,4,0,4,4>
-          ]
-C:\Users\User\Documents\aSpring_2022\Robot_Kinematics\dynamixel\Examples\IK_Control\program\Eigen\src\Core\Dot.h(76,3): error C2338: YOU_MIXED_VECTORS_OF_DIFFERENT_SIZES
+C:\Users\Byte\Documents\GitHub\Robot-Kinematics - Copy (2)\Examples\IK_Control\program\Jacobian.cpp(67,31): warning C4834: discarding return value of function with 'nodiscard' attribute
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(1092,5): error MSB6006: "link.exe" exited with code 1257.
+LINK : fatal error C1047: The object or library file '..\..\lib\easy_dynamixel.lib' was created by a different version of the compiler than other objects like 'x64\Release\ForwardKinematics.obj'; rebuild all objects and libraries with the same compiler
+LINK : fatal error LNK1257: code generation failed

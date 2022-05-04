@@ -64,15 +64,17 @@ int main()
 
 		
 		
-		double deltaAngle = Jacobian::getChangeInAngles(curPos, deltaPosition);
+		//double deltaAngle = Jacobian::getChangeInAngles(curPos, deltaPosition);
+		Eigen::MatrixXd deltaAngles = Jacobian::getChangeInAngles(curPos, deltaPosition);
 		double newAngles[] = { 0, 0, 0, 0, 0, 0 };
-		std::cout << "Delta Angles = " << deltaAngle << "\nNew Angles: ";
-		if (deltaAngle != -999)
+		double deltaAngle = 0;
+		std::cout << "Delta Angles = " << deltaAngles << "\nNew Angles: ";
+		if (deltaAngle != -999) // nice lmao
 		{
 			for (int i = 0; i < 6; i++)
 			{
-				newAngles[i] = (currentAngles[i] + deltaAngle);
-				std::cout << newAngles[i] << ", ";
+				//newAngles[i] = (currentAngles[i] + deltaAngle);
+				//std::cout << newAngles[i] << ", ";
 			}
 		}
 		else
