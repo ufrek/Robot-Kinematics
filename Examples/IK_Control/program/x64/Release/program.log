@@ -29,7 +29,7 @@ C:\Users\User\Documents\aSpring_2022\Robot_Kinematics\Projects\Robot-Kinematics\
 C:\Users\User\Documents\aSpring_2022\Robot_Kinematics\Projects\Robot-Kinematics\Examples\include\group_sync_write.h(44,35): warning C4251: 'dynamixel::GroupSyncWrite::data_list_': class 'std::map<uint8_t,uint8_t *,std::less<uint8_t>,std::allocator<std::pair<const uint8_t,uint8_t *>>>' needs to have dll-interface to be used by clients of class 'dynamixel::GroupSyncWrite'
 C:\Users\User\Documents\aSpring_2022\Robot_Kinematics\Projects\Robot-Kinematics\Examples\include\group_bulk_read.h(46): message : see declaration of 'std::map<uint8_t,uint8_t *,std::less<uint8_t>,std::allocator<std::pair<const uint8_t,uint8_t *>>>'
   Generating code
-  1 of 2734 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  1 of 2728 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     155 functions had inline decision re-evaluated but remain unchanged
   Finished generating code

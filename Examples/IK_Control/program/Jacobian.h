@@ -6,11 +6,11 @@
 class Jacobian
 {
 	private:
-		static Eigen::Matrix<double, 4, 4> getJacobian(std::vector<double> theta);
+		static Eigen::Matrix<double, 4, 4> getJacobian(double* theta);
 
 
 	public:
-		static Eigen::MatrixXd getChangeInAngles(std::vector<double> currentPositions, std::vector<double> deltaPositions);
+		static Eigen::MatrixXd getChangeInAngles(double* currentPositions, std::vector<double> deltaPositions);
 
 };
 #endif
