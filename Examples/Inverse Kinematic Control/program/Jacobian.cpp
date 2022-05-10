@@ -4,7 +4,9 @@
 #include "ForwardKinematics.h"
 
 
-
+/*
+Returns the jacobian using input motor angles. Jacobian matrix values calculated using python.
+*/
 Eigen::Matrix<double, 4, 4> Jacobian::getJacobian(double* theta)
 {
     std::vector<double> angles;
@@ -61,7 +63,9 @@ Eigen::Matrix<double, 4, 4> Jacobian::getJacobian(double* theta)
     return m;
 }
 
-	
+/*
+Gets the change in angles using the inverse jacobian matrix. Returns motor angles to change. 
+*/
 Eigen::MatrixXd Jacobian::getChangeInAngles(double* currentAngles, std::vector<double> deltaPositions)
 {
     
@@ -80,7 +84,7 @@ Eigen::MatrixXd Jacobian::getChangeInAngles(double* currentAngles, std::vector<d
         // Change in positions for x y and z.
         // Worry about roll later.
         
-//TODO: there is some kind of size error here I think
+        //TODO: there is some kind of size error here I think
         //double deltaAngles = jInverse;
         Eigen::MatrixXd deltaAngles = jInverse * m;
         

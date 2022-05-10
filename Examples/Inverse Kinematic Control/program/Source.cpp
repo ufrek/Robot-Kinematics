@@ -10,6 +10,7 @@
 #include "ForwardKinematics.h"
 #include "Jacobian.h"
 #include <iostream>
+
 using namespace std::chrono;
 using namespace std::this_thread;
 
@@ -39,14 +40,11 @@ int main()
 	double targetAngles[] = { 180.3, 25, 272.27, 226.33, 189.16, 129.4 };
 	double* targetPosition = ForwardKinematics::getXYZ(targetAngles);
 	
-	
 	while (1) 
 	{
 			
 		std::vector<double> deltaPosition;
-		
-	
-	
+
 		//get change in positions
 		for (int i = 0; i < 3; i++)
 		{
@@ -74,8 +72,6 @@ int main()
 			deltaPosition[i] = deltaPosition[i] * safeIncrement;
 		}
 
-		
-		
 		//double deltaAngle = Jacobian::getChangeInAngles(curPos, deltaPosition);
 		Eigen::MatrixXd deltaAngles = Jacobian::getChangeInAngles(currentAngles, deltaPosition);
 		
@@ -95,15 +91,10 @@ int main()
 			std::cout << "invalid Delta Angle";
 			//break;
 		}
-			
-		
 		
 		edxl.setTorqueMult(idarr, torque, 6);
 		edxl.setAngleMult(idarr, currentAngles, 6);
 		
-
-
-
 		if (GetKeyState('Q') & 0x8000/*Check if high-order bit is set (1 << 15)*/)
 		{
 			printf("Application Closed. You pressed Q.");
@@ -111,8 +102,6 @@ int main()
 			break;
 		}
 		sleep_for(nanoseconds(10));
-
-		
 
 	}
 	edxl.closePort();

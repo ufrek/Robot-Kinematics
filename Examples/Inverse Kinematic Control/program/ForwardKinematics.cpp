@@ -4,7 +4,7 @@
 double pi = 3.1415926535897932384626433;
 
 
-
+// Matrices for Forward Kinematics.
 Eigen::Matrix4f t;
 Eigen::Matrix4f a0;
 Eigen::Matrix4f a1;
@@ -25,7 +25,9 @@ double line4[3] = { 0, 200, 0 };
 double line5[3] = { pi / 2, 0, 0 };
 double line6[3] = { 0, 0, 174.15 };
 
-
+/*
+Returns the result of the DH parameters. Calculates the resulting Matrix.
+*/
 Eigen::Matrix4f getresult(double alpha, double a, double d, double angle)
 {
 	double radangle = angle;
@@ -37,15 +39,20 @@ Eigen::Matrix4f getresult(double alpha, double a, double d, double angle)
 	return t;
 }
 
+// Converts degrees to radians.
 double ForwardKinematics::torad(double angle) {
 	return angle * (pi / 180.0);
 }
 
+// Returns Pi.
 double ForwardKinematics::getPi()
 {
 	return pi;
 }
 
+/*
+Returns the dot product using the DH matrix and calculates the end effector.
+*/
 Eigen::Matrix4f cdhparam(double* angles)
 {
 	// Line list: in order: alpha, a, d
@@ -60,6 +67,9 @@ Eigen::Matrix4f cdhparam(double* angles)
 	return tfinal;
 }
 
+/*
+Returns the X Y Z coordinate of the robot arm using forward kinematics.
+*/
 double* ForwardKinematics::getXYZ(double* angleArray)
 {
 	Eigen::Matrix4f result = cdhparam(angleArray);
