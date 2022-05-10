@@ -5,9 +5,10 @@ Robotic Arm software for Kinematics and Learning.
 Code examples modified from DynamixelSDK and easyDyamixel.
 
 
-
 ![widowX200 In Motion](https://raw.githubusercontent.com/CoachGeorgia/Robot-Kinematics/main/docs/images/Model%20Recording_4.gif)
 
+
+[![NVIDIA Robot Arm AI](https://github.com/CoachGeorgia/Robot-Kinematics/blob/main/docs/images/NVIDIA_Robot_Arm.PNG)](https://www.youtube.com/watch?v=-t-Pze6DNig "NVIDIA Robot Arm AI")
 ## Hardware ##
 ### Robotic Arm 
 [WidowX200]( https://www.trossenrobotics.com/widowx-200-robot-arm.aspx)
