@@ -7,6 +7,9 @@
 std::vector<double> output(6);
 std::vector<Action> actions;
 
+//Collects all recorded actions into a single vector and returns angles based on the current action and duration
+
+//Combines each individual action into a vector. 
 GaussianMixModel::GaussianMixModel(std::vector<Action> a) 
 {
 	actions = a;
@@ -29,6 +32,7 @@ double GaussianMixModel::angleFromGaussian(float duration, double* weights, doub
 }
 
 
+//get the motor angles based on a provided action and a provided duration from 0 to 1
 std::vector<double> GaussianMixModel::GetActionAngles(int actionIndex, std::vector<float>dur)
 {
 	Action a = actions.at(actionIndex);

@@ -15,8 +15,14 @@ Eigen::Matrix4f a5;
 Eigen::Matrix4f a6;
 Eigen::Matrix4f tfinal;
 
+
+//Calculates the end effectors position in 3D space based on the proviedd angles of the arm
+
+
 double positionArray[3];
 
+
+//Denavit Hartenburg values
 double line0[3] = { 0, 0, 113.25 };
 double line1[3] = { pi / 2, 0, 0 };
 double line2[3] = { 0, 200, 0 };
@@ -26,6 +32,7 @@ double line5[3] = { pi / 2, 0, 0 };
 double line6[3] = { 0, 0, 174.15 };
 
 
+//convert DH parameters to matrix values
 Eigen::Matrix4f getresult(double alpha, double a, double d, double angle)
 {
 	double radangle = angle;
@@ -37,10 +44,13 @@ Eigen::Matrix4f getresult(double alpha, double a, double d, double angle)
 	return t;
 }
 
+
+//converts angle to radians
 double ForwardKinematics::torad(double angle) {
 	return angle * (pi / 180.0);
 }
 
+//Calculate position in 3D space
 Eigen::Matrix4f cdhparam(double* angles)
 {
 	// Line list: in order: alpha, a, d
@@ -55,6 +65,7 @@ Eigen::Matrix4f cdhparam(double* angles)
 	return tfinal;
 }
 
+//Get XYZ coordinates from provided angle
 double* ForwardKinematics::getXYZ(double* angleArray)
 {
 	Eigen::Matrix4f result = cdhparam(angleArray);

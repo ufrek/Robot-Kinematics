@@ -14,7 +14,8 @@
 #include "TrainingData.h"
 
 
-
+//Takes in csv files for gaussian mixture models and training data and plays back both actions over a normalized time period. 
+//Allows for comparison of training data and model calculated angles in real time
 
 
 using namespace std::chrono;

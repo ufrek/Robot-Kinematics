@@ -21,6 +21,9 @@ std::vector<double> motor5Angles;
 
 std::vector<std::vector<std::vector<double>>> actions;
 
+
+
+//Takes in acsv and outputs recorded motor angles from the csv
 TrainingData::TrainingData() 
 {
 

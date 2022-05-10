@@ -42,9 +42,11 @@ std::vector<double> centers;
 std::vector<double> stdev;
 
 
+//The Action class takes in a csv file and builds 6 Gaussian Mixture Models to use for caculating motor angles with a provided duration between 0 and 1
+
 Action::Action(const char* inpath)
 {
-	
+	//Variables for GMModel
 	std::vector<double> weights;
 	std::vector<double> centers;
 	std::vector<double> standard_deviations;
@@ -62,6 +64,7 @@ Action::Action(const char* inpath)
 	indata.getline(inputrow, 3, '\n'); // Reads in the first 3 elements and puts them into inputrow.
 	std::string var = ""; // start with a blank string and concatenate characters as the lineis being read
 
+	//reads each line of csv and parses the numbers in
 	for (char x : inputrow) {
 		std::cout << x;
 		if (x == ',') {
@@ -103,6 +106,8 @@ Action::Action(const char* inpath)
 		centers.push_back(data[1]);
 		standard_deviations.push_back(data[2]);
 		int vectorcounter = 0;
+
+		//copies data to back inserter
 		if (counter = weightcount) {
 			vectorcounter = 0;
 			if (counter == 0) {
@@ -153,6 +158,7 @@ Action::Action(const char* inpath)
 	indata.close();
 }
 
+//Given a Gaussian Model m, calculated a motor angle with the provided durration
 double Action::angleFromGaussian(MotorModel m, float duration)
 {
 	//int len = *(&weights + 1) - weights;
@@ -171,6 +177,7 @@ double Action::angleFromGaussian(MotorModel m, float duration)
 	return out;
 }
 
+//Calculates each of the 6 motor angles based on a given duration
 std::vector<double> Action::CalculateAngles(float duration)
 {
 	std::vector<double> outAngles;
