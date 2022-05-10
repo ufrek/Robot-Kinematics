@@ -48,8 +48,6 @@ In the Motion Primitives Folder, there is a project Folder titled "Gaussian Mixt
 
 We then copy the output of the Gaussian Mixture Model Fitting into the Motion Primitive project and use a loop from 0 to 1 with a small incrementing step to iterate over each of the 6 Gaussian Mixture Models and update the output angles of these models to each motor. To put things simply, we are playing back recorded actions by using a calculated model of these actions.
 
-We have a folder titled "Motion Primited Refactored" which contains a completely refactored version of MOtion Primitives. At this point in time, we have not tested it however. The functions will largely be the same as the other Motion Primitives project.
-
 ### Training by Demo:
 ![Draw Line](https://raw.githubusercontent.com/CoachGeorgia/Robot-Kinematics/main/docs/images/Training%20Recording_2.gif)
 
@@ -57,8 +55,12 @@ We have a folder titled "Motion Primited Refactored" which contains a completely
 ![widowX200](https://github.com/CoachGeorgia/Robot-Kinematics/blob/main/Examples/MotionPrimitives%20(FK)/DrawLine%20Visualization.png?raw=true)
 
 ## Forward Kinematics ##
+We calculated Denavit Hartenburg values for each of the motors and calculated the position of the end effector of the robot arm in 3D space. In this project, we combined a motion primitve from the previous project with Forward Kinematics so we can compare the calculated position with the position from the training data.
+
+We have a folder titled "Motion Primited Refactored" which contains a completely refactored version of MOtion Primitives. At this point in time, we have not completed the refactored implementation but it would allow for real time comparison between the calculated 3D space postitions of rht training data and the calculated positions from our fit Gaussian Mixture Models for a task.
 
 ## Inverse Kinematics ##
+NOT FUNCTIONING: We calculate a Jacobian from the Denavit Hartenburg parameters we calculated in the previous project. We have a goal end effector position and rotaation and use the Jacobian to calculate the angles required to move the robot arm to the desired position.
 
 ## Download & Installation (Windows)##
 ### Dynamixel Install
