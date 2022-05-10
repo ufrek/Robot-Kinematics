@@ -23,7 +23,33 @@ Visual Studio
 
 # Examples
 
+## Programming by Demonstration ##
+This project records a robot arm's actions in the record project folder and exports it to a text file. You can then playback those recorded actions in the playback project folder.
+
+### Record:
+Record.exe or Record.sln will record the angles of a connected robot arm and export the poositions into a file called "positions.txt."
+
+In the folder "example_record" you will find the files necessary for recording a robot arm's actions. Open up the record.sln file in visual studio and make sure your the com value is set in the source.cpp file to the correct serial port on your device before running. You can find the port number of your arm by downloading and opening up Dynamixel Wizard 2.0 and checking the options tab.
+
+### Playback
+Playback.exe takes a text file in the same directory, gets the motor angles from each line of the file, and sets the motor's angles to the retrieved values.
+In other words, it plays back a recorded behavior
+
+In the folder "example_playback" you will find the files necessary for recording a robot arm's actions.
+// Note: running from the local windows debugger will not work. Build the playback application file and run that instead.
+The application will be built in ../Programming by Demonstration/example_playback/x64/Release/playback.exe
+//REQUIRED: You need a file called "positions.txt" in the same directory as the application file for it to run properly. (Or rename the target file in ode)
+Each line in the text document must containr 6 comma separated values, one for each motor angle.
+
 ## Motion Primitives ##
+In this project, we record several action behaviors and calculate Gaussian Mixture Models to fit change in angles over time for each motor. We then take these models and make the robot arm move based on these models. We have combined 3 different actions (cradle to home position, drawing a line, home position to cradle) and used interpolation bettween the end of one action and the beginnning of the next action. 
+
+In the Motion Primitives Folder, there is a project Folder titled "Gaussian Mixture Model" that contains a python file to run Gaussian Mixture Model fitting to a provided csv file. In this example, we used the Record project from the Programming By Demonstration to record a training data set so that we can fit a Gaussian Mixture Model to it.
+
+We then copy the output of the Gaussian Mixture Model Fitting into the Motion Primitive project and use a loop from 0 to 1 with a small incrementing step to iterate over each of the 6 Gaussian Mixture Models and update the output angles of these models to each motor. To put things simply, we are playing back recorded actions by using a calculated model of these actions.
+
+We have a folder titled "Motion Primited Refactored" which contains a completely refactored version of MOtion Primitives. At this point in time, we have not tested it however. The functions will largely be the same as the other Motion Primitives project.
+
 ### Training by Demo:
 ![Draw Line](https://raw.githubusercontent.com/CoachGeorgia/Robot-Kinematics/main/docs/images/Training%20Recording_2.gif)
 
