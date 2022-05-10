@@ -19,6 +19,8 @@ using namespace std::this_thread;     // sleep_for, sleep_until
 using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
 using std::chrono::system_clock;
 
+//Motion Primitives: Takes calculated Gaussian Mixture Models from Training data set.
+//Plays back an action by incrementing from 0 - 1 and getting the output from the models.
 
 // Don't set an angle to motor 3.
 int idarr[] = { 1, 2, 4, 5, 6, 7 };
@@ -40,11 +42,12 @@ int main()
 
 	auto startTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 
-	//alter this to slow it down? I think
+	//alter this to slow it down
 	float timeFactor = .00015f;
 	double angles[] = { 0, 0, 0, 0, 0, 0 };
 
 	
+	//
 	int totalRuns = 0;
 	while (1)
 	{
@@ -62,7 +65,7 @@ int main()
 		// a / (1.0 + exp(x - d))) + b 
 		//x = time
 
-
+		//Gaussian Mixture Models for each motor angle
 		angles[0] = -0.08847149061058925 / (1.0 + exp(-5861.2986553395 * (duration - 0.4463415613754276))) + 180.5930084033614;
 		angles[1] = 113.92094070939986 / (1.0 + exp(-36.80468057067554 * (duration - 0.36783185167165916))) + 70.7262474226124;
 		angles[2] = -((100.16158050571426 / (1.0 + exp(-29.623944320336754 * (duration - 0.6227530305348828))) + 177.42072336886352) - .5) + .5 ;
@@ -71,7 +74,7 @@ int main()
 		
 
 		
-
+		//Check to make sure angles calculated are within safe range
 		if (angles[2] > 277.816)
 			angles[2] = 277.816;
 		else if (angles[2] < 177.32)
@@ -93,17 +96,22 @@ int main()
 		else if (angles[4] > 195.624)
 			angles[4] = 195.624;
 			*/
+
+		//uncomment to print out angles
 		for (int i = 0; i < 6; i++)
 		{
 			
 			//cout << "angle " << i << ": " << angles[i] << "\n";
 		}
 
+		//set calculated angles here
 		edxl.setTorqueMult(idarr, torque, 6);
 		edxl.setAngleMult(idarr, angles, 6);
 		
 		cout << angles[3] << "\n";
 		file << angles[0] << "," << angles[1] << "," << angles[2] << "," << angles[3] << "," << angles[4] << "," << angles[5] << "\n";
+		
+		//checks if duration is greater than x amount  iterations of loop,, can be used to shut down program if needed
 		totalRuns++;
 		if (totalRuns == 269)
 		{
@@ -135,30 +143,6 @@ int main()
 		printf("Application Closed.");
 		edxl.closePort();
 
-
-
-	/*
-	while (1)
-	{
-		double* d;
-		d = edxl.getAngleMult(idarr, 6);
-		file << d[0] << "," << d[1] << "," << d[2] << "," << d[3] << "," << d[4] << "," << d[5] << ",";
-		printf("%f, %f, %f, %f, %f, %f \n", d[0], d[1], d[2], d[3], d[4], d[5]);
-
-
-
-		
-	}
-
-	*/
-	/*
-	
-	for (int i = 0; i < 1000; i++) {
-		double* d;
-		d = edxl.getAngleMult(idarr, 6);
-		file << d[0] << "," << d[1] << "," << d[2] << "," << d[3] << "," << d[4] << "," << d[5] << "\n";
-		printf("%f, %f, %f, %f, %f, %f \n", d[0], d[1], d[2], d[3], d[4], d[5]);
-	}*/
 	file.close();
 	auto end = std::chrono::system_clock::now();
 
