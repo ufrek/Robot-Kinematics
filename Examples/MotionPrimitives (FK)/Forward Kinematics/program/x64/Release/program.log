@@ -1,5 +1,0 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(510,5): warning MSB8028: The intermediate directory (x64\Release\) contains files shared from another project (program.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Blink.cpp
-C:\Users\User\Documents\aSpring_2022\Robot Kinematics\Projects\Robot-Kinematics\Examples\MotionPrimitives (FK)\Forward Kinematics\program\Blink.cpp(7,10): fatal error C1083: Cannot open include file: 'dynamixel_sdk.h': No such file or directory
-  Source.cpp
-C:\Users\User\Documents\aSpring_2022\Robot Kinematics\Projects\Robot-Kinematics\Examples\MotionPrimitives (FK)\Forward Kinematics\program\Source.cpp(8,10): fatal error C1083: Cannot open include file: 'dynamixel_sdk.h': No such file or directory
