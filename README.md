@@ -42,7 +42,7 @@ In the Motion Primitives Folder, there is a project Folder titled "Gaussian Mixt
 
 We then copy the output of the Gaussian Mixture Model Fitting into the Motion Primitive project and use a loop from 0 to 1 with a small incrementing step to iterate over each of the 6 Gaussian Mixture Models and update the output angles of these models to each motor. To put things simply, we are playing back recorded actions by using a calculated model of these actions.
 
-### GMM Motor Angle Data: Visualization
+### GMM Motor Data Visualization
 ![GMM Data](https://github.com/CoachGeorgia/Robot-Kinematics/blob/main/docs/source/GMM%20Visualization%20Home%20to%20Cradle%20S.png?raw=true)
 
 ## Forward Kinematics ##
