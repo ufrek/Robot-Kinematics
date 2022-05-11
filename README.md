@@ -4,33 +4,26 @@
 Robotic Arm software for Kinematics and Learning. 
 Code examples modified from DynamixelSDK and easyDyamixel.
 
-
 ![widowX200 In Motion](https://raw.githubusercontent.com/CoachGeorgia/Robot-Kinematics/main/docs/images/Model%20Recording_4.gif)
 
-## Training ##
+### |  Training_by_Demo  |  Motion_Primitive  |  Forward_Kinematics  |  Inverse_Kinematics  | 
 [![Robot Arm Plays Chess](https://github.com/CoachGeorgia/Robot-Kinematics/blob/main/docs/images/RoboticArmChessPlayBack.PNG)](https://youtu.be/VSL-L6GrsGc "Robot Arm Plays Chess")
-## Hardware ##
-### Robotic Arm 
-[WidowX200]( https://www.trossenrobotics.com/widowx-200-robot-arm.aspx)
 
-### Robotic Arm Firmware 
-[Dynamixel Communication Protocol 2.0]( https://emanual.robotis.com/docs/en/dxl/protocol2/#instruction-packet)
-
-## Software ##
-### OS:
-Windows 10
-### IDE:
-Visual Studio
-
-# Examples
+# Code Examples
 
 ## Programming by Demonstration ##
+
 This project records a robot arm's actions in the record project folder and exports it to a text file. You can then playback those recorded actions in the playback project folder.
 
+[![Program By Demo](https://github.com/CoachGeorgia/Robot-Kinematics/blob/main/docs/images/RoboticArmChessTraining.PNG)](https://youtu.be/DSxp6IZOY7c "Robot Arm Learns Chess Move by Demo")
+
 ### Record:
-Record.exe or Record.sln will record the angles of a connected robot arm and export the poositions into a file called "positions.txt."
+Record.exe or Record.sln will record the angles of a connected robot arm and export the positions into a file called "positions.txt."
+
+![Draw Line](https://raw.githubusercontent.com/CoachGeorgia/Robot-Kinematics/main/docs/images/Training%20Recording_2.gif)
 
 In the folder "example_record" you will find the files necessary for recording a robot arm's actions. Open up the record.sln file in visual studio and make sure your the com value is set in the source.cpp file to the correct serial port on your device before running. You can find the port number of your arm by downloading and opening up Dynamixel Wizard 2.0 and checking the options tab.
+
 
 ### Playback
 Playback.exe takes a text file in the same directory, gets the motor angles from each line of the file, and sets the motor's angles to the retrieved values.
@@ -49,8 +42,7 @@ In the Motion Primitives Folder, there is a project Folder titled "Gaussian Mixt
 
 We then copy the output of the Gaussian Mixture Model Fitting into the Motion Primitive project and use a loop from 0 to 1 with a small incrementing step to iterate over each of the 6 Gaussian Mixture Models and update the output angles of these models to each motor. To put things simply, we are playing back recorded actions by using a calculated model of these actions.
 
-### Training by Demo:
-![Draw Line](https://raw.githubusercontent.com/CoachGeorgia/Robot-Kinematics/main/docs/images/Training%20Recording_2.gif)
+
 
 ### Motor Data:
 ![widowX200](https://github.com/CoachGeorgia/Robot-Kinematics/blob/main/Examples/MotionPrimitives%20(FK)/DrawLine%20Visualization.png?raw=true)
@@ -127,6 +119,18 @@ The compiled exe should be in the “example_read\x64\Release” folder.
 
 The file should be named “read.exe”
 
+## Hardware ##
+### Robotic Arm 
+[WidowX200]( https://www.trossenrobotics.com/widowx-200-robot-arm.aspx)
+
+### Robotic Arm Firmware 
+[Dynamixel Communication Protocol 2.0]( https://emanual.robotis.com/docs/en/dxl/protocol2/#instruction-packet)
+
+## Software ##
+### OS:
+Windows 10
+### IDE:
+Visual Studio
 
 ## Links ##
 [WidowX200]( https://www.trossenrobotics.com/widowx-200-robot-arm.aspx)
