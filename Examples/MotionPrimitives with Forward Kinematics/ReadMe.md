@@ -7,7 +7,7 @@ In this project wwe add upon the motion primitives project and add in Forward Ki
  
  There are 3 tasks that the motion primitive and training set cover: "Cradle to Home Position," "Drawing a Line," and "Home Position to Cradle." There are 3 visualization images in the "Motion Primitive Visualizations" folder that display the angles of the motors over time of each action. 
  
- ## Demonstration of the playback of some arm wriggling: ##
+ ## Demonstration of the Real Time Calculation of the End Effector Position ##
 [![Programming By Demonstration](https://img.youtube.com/vi/ID7LfaNjIwk/0.jpg)](https://www.youtube.com/watch?v=ID7LfaNjIwk)
  
 ## How To Run: ##
