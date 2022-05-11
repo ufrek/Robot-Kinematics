@@ -4,34 +4,28 @@
 Robotic Arm software for Kinematics and Learning. 
 Code examples modified from DynamixelSDK and easyDyamixel.
 
-
-
 ![widowX200 In Motion](https://raw.githubusercontent.com/CoachGeorgia/Robot-Kinematics/main/docs/images/Model%20Recording_4.gif)
 
-## Hardware ##
-### Robotic Arm 
-[WidowX200]( https://www.trossenrobotics.com/widowx-200-robot-arm.aspx)
+### |  Training_by_Demo  |  Motion_Primitive  |  Forward_Kinematics  |  Inverse_Kinematics  | 
+[![Robot Arm Plays Chess](https://github.com/CoachGeorgia/Robot-Kinematics/blob/main/docs/images/RoboticArmChessPlayBack.PNG)](https://youtu.be/VSL-L6GrsGc "Robot Arm Plays Chess")
 
-### Robotic Arm Firmware 
-[Dynamixel Communication Protocol 2.0]( https://emanual.robotis.com/docs/en/dxl/protocol2/#instruction-packet)
-
-## Software ##
-### OS:
-Windows 10
-### IDE:
-Visual Studio
-
-# Examples
+# Code Examples
 
 ## Programming by Demonstration ##
+
 This project records a robot arm's actions in the record project folder and exports it to a text file. You can then playback those recorded actions in the playback project folder.
 
+[![Program By Demo](https://github.com/CoachGeorgia/Robot-Kinematics/blob/main/docs/images/RoboticArmChessTraining.PNG)](https://youtu.be/DSxp6IZOY7c "Robot Arm Learns Chess Move by Demo")
+
 ### Record:
-Record.exe or Record.sln will record the angles of a connected robot arm and export the poositions into a file called "positions.txt."
+Record.exe or Record.sln will record the angles of a connected robot arm and export the positions into a file called "positions.txt."
+
+![Draw Line](https://raw.githubusercontent.com/CoachGeorgia/Robot-Kinematics/main/docs/images/Training%20Recording_2.gif)
 
 In the folder "example_record" you will find the files necessary for recording a robot arm's actions. Open up the record.sln file in visual studio and make sure your the com value is set in the source.cpp file to the correct serial port on your device before running. You can find the port number of your arm by downloading and opening up Dynamixel Wizard 2.0 and checking the options tab.
 
-### Playback
+
+### Playback:
 Playback.exe takes a text file in the same directory, gets the motor angles from each line of the file, and sets the motor's angles to the retrieved values.
 In other words, it plays back a recorded behavior
 
@@ -48,21 +42,18 @@ In the Motion Primitives Folder, there is a project Folder titled "Gaussian Mixt
 
 We then copy the output of the Gaussian Mixture Model Fitting into the Motion Primitive project and use a loop from 0 to 1 with a small incrementing step to iterate over each of the 6 Gaussian Mixture Models and update the output angles of these models to each motor. To put things simply, we are playing back recorded actions by using a calculated model of these actions.
 
-### Training by Demo:
-![Draw Line](https://raw.githubusercontent.com/CoachGeorgia/Robot-Kinematics/main/docs/images/Training%20Recording_2.gif)
-
-### Motor Data:
-![widowX200](https://github.com/CoachGeorgia/Robot-Kinematics/blob/main/Examples/MotionPrimitives%20(FK)/DrawLine%20Visualization.png?raw=true)
+### GMM Motor Data Visualization
+![GMM Data](https://github.com/CoachGeorgia/Robot-Kinematics/blob/main/docs/source/GMM%20Visualization%20Home%20to%20Cradle%20S.png?raw=true)
 
 ## Forward Kinematics ##
 We calculated Denavit Hartenburg values for each of the motors and calculated the position of the end effector of the robot arm in 3D space. In this project, we combined a motion primitve from the previous project with Forward Kinematics so we can compare the calculated position with the position from the training data.
 
-We have a folder titled "Motion Primited Refactored" which contains a completely refactored version of MOtion Primitives. At this point in time, we have not completed the refactored implementation but it would allow for real time comparison between the calculated 3D space postitions of rht training data and the calculated positions from our fit Gaussian Mixture Models for a task.
+In the folder titled "Motion Primited Refactored" is a completely refactored version of Motion Primitives. At this point in time, we have not completed the refactored implementation but it would allow for real time comparison between the calculated 3D space postitions of the training data and the calculated positions from our fit Gaussian Mixture Models for a task.
 
 ## Inverse Kinematics ##
-NOT FUNCTIONING: We calculate a Jacobian from the Denavit Hartenburg parameters we calculated in the previous project. We have a goal end effector position and rotaation and use the Jacobian to calculate the angles required to move the robot arm to the desired position.
+TODO: We calculate a Jacobian from the Denavit Hartenburg parameters we calculated in the previous project. We have a goal end effector position and rotaation and use the Jacobian to calculate the angles required to move the robot arm to the desired position.
 
-## Download & Installation (Windows)##
+## Download & Installation (Windows) ##
 ### Dynamixel Install
 
 Download the Dynamixel Wizard 2.0
@@ -126,6 +117,18 @@ The compiled exe should be in the “example_read\x64\Release” folder.
 
 The file should be named “read.exe”
 
+## Hardware ##
+### Robotic Arm 
+[WidowX200]( https://www.trossenrobotics.com/widowx-200-robot-arm.aspx)
+
+### Robotic Arm Firmware 
+[Dynamixel Communication Protocol 2.0]( https://emanual.robotis.com/docs/en/dxl/protocol2/#instruction-packet)
+
+## Software ##
+### OS:
+Windows 10
+### IDE:
+Visual Studio
 
 ## Links ##
 [WidowX200]( https://www.trossenrobotics.com/widowx-200-robot-arm.aspx)
