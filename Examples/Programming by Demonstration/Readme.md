@@ -9,9 +9,9 @@ For this project we have two small programs: Record and Playback. In programming
 
 	2: Open record.sln
 
-	3: Open Dynamixel Wizard 2.0 and click on the options tab to check your serial com number 		     for the Dynamixel arm.
+	3: Open Dynamixel Wizard 2.0 and click on the options tab to check your serial com number for the Dynamixel arm.
 
-	4: Check to make sure the variable “com” (line 18) is matching your Dynamixel Arm. Our value 	    was “COM14.”
+	4: Check to make sure the variable “com” (line 18) is matching your Dynamixel Arm. Our value was “COM14.”
 
 	5: Build the solution and run it.
 
@@ -24,15 +24,15 @@ For this project we have two small programs: Record and Playback. In programming
 
 	2: Open playback,sln
 
-	3: Open Dynamixel Wizard 2.0 and click on the options tab to check your serial com number 		     for the Dynamixel arm.
+	3: Open Dynamixel Wizard 2.0 and click on the options tab to check your serial com number for the Dynamixel arm.
 
-	4: Check to make sure the variable “com” (line 18) is matching your Dynamixel Arm. Our value 	    was “COM14.”
+	4: Check to make sure the variable “com” (line 18) is matching your Dynamixel Arm. Our value was “COM14.”
 
 	5: Navigate to Build in the top menu and select rebuild playback
 
-	6: Navigate in your file explorer to ../example_playback/x64/Release and drag your       	 		    positions.txt file form the record process here. Replace the current existing file if you must.
+	6: Navigate in your file explorer to ../example_playback/x64/Release and drag your positions.txt file form the record process here. Replace the current existing file if you must.
 
-	7: Double-click on the playback application and the program will make the robot arm re-enact 		    the recorded actions.
+	7: Double-click on the playback application and the program will make the robot arm re-enact the recorded actions.
 
 
 ## Demonstration of the playback of some arm wriggling: ##
