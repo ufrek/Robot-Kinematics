@@ -21,7 +21,7 @@ using namespace std::this_thread;
 double pi = 3.1415926535897932384626433;
 
 
-
+//Build our DH Parameter Matrix
 Eigen::Matrix4f t;
 Eigen::Matrix4f a0;
 Eigen::Matrix4f a1;
@@ -34,6 +34,7 @@ Eigen::Matrix4f tfinal;
 
 double positionArray[3];
 
+//DH values lined up in a matrix. Each line is a motor's values
 double line0[3] = { 0, 0, 113.25 };
 double line1[3] = { pi / 2, 0, 0 };
 double line2[3] = { 0, 200, 0 };
@@ -42,6 +43,7 @@ double line4[3] = { 0, 200, 0 };
 double line5[3] = { pi / 2, 0, 0 };
 double line6[3] = { 0, 0, 174.15 };
 
+//Takes our DH parameter values and returns the transsformation matrix
 Eigen::Matrix4f getresult(double alpha, double a, double d, double angle)
 {
 	double radangle = angle;
@@ -53,10 +55,12 @@ Eigen::Matrix4f getresult(double alpha, double a, double d, double angle)
 	return t;
 }
 
+//Cnnverts angle degrees to radians
 double torad(double angle) {
 	return angle * (pi / 180.0);
 }
 
+//After getting the transformation matrix, returns the Position values
 Eigen::Matrix4f cdhparam(double* angles)
 {
 	// Line list: in order: alpha, a, d
@@ -71,6 +75,7 @@ Eigen::Matrix4f cdhparam(double* angles)
 	return tfinal;
 }
 
+//Returns the X,Y, and Z positions based on an array of motor angles from the robot arm
 double* getXYZ(double* angleArray)
 {
 	Eigen::Matrix4f result = cdhparam(angleArray);
@@ -84,9 +89,10 @@ double* getXYZ(double* angleArray)
 }
 
 
-//motion primitve stuff
+//motion primitve variables
 double output[6];
-//takes in parameters to add all indiviual gaussians and return an angle
+
+//Takes in parameters to add all indiviual gaussians and return an angle
 double angleFromGaussian(float duration, double* weights, double* centers, double* std)
 {
 	//int len = *(&weights + 1) - weights;
@@ -101,6 +107,8 @@ double angleFromGaussian(float duration, double* weights, double* centers, doubl
 	return out;
 }
 
+//The Gaussian Mixture Models for the Cradle to Home Action
+//Returns angles based on a normalized duration from  TIme = 0 to 1 
 void cradleToHomeAngles(float duration)
 {
 
@@ -219,6 +227,8 @@ void cradleToHomeAngles(float duration)
 
 }
 
+//The Gaussian Mixture Models for the Drawing a Line Action
+//Returns angles based on a normalized duration from  Time = 0 to 1 
 void DrawAngles(float duration)
 {
 	//Motor: 0
@@ -350,6 +360,8 @@ void DrawAngles(float duration)
 	output[5] = angleFromGaussian(duration, weights5, centers5, deviations5);
 }
 
+//The Gaussian Mixture Models for the Cradle to Home Action
+//Returns angles based on a normalized duration from  Time = 0 to 1 
 void homeToCradleAngles(float duration)
 {
 	output[0] = 180.576;
@@ -473,7 +485,9 @@ char com[6] = "COM14";
 
 
 
-
+//Loops through each action and increments a time duration variable from 0 to 1
+//Feeds the duration values to get angles from Motion Primitives
+//Feeds the calculated Angles into Forward Kinematics Functions to get the position in 3D space.
 
 int main() {
 	Easydxl edxl(com);
@@ -481,7 +495,7 @@ int main() {
 	std::ofstream file;
 	file.open("positionsActions.txt");
 
-	int currentAction = 0;
+	int currentAction = 0; //which task is currently being played
 
 
 	boolean isTransitioning = false;
@@ -496,7 +510,7 @@ int main() {
 
 	float duration[3] = { 0, 0, 0 };  //cradle to home, draw, home to cradle
 
-	float weights[2] = {0,0};
+	float weights[2] = {0,0}; //used to transition angles between two tasks
 
 
 	int numberOfActions = 2;
